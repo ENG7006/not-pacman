@@ -1,9 +1,16 @@
 /*
   KEYED UP BALL
-  KeyedUpBall is a "ball" (really, just a circle) that moves around a canvas in response to key presses from a user. It's a bit more complicated than that, but not by much. It uses p5.Vector objects as internal representation of position and direction, and a simple integer for speed. It also uses KeyListener objects to make it responsive.
+  KeyedUpBall is a "ball" (really, just a circle) that moves around a canvas
+  in response to key presses from a user. It's a bit more complicated than that,
+  but not by much. It uses p5.Vector objects as internal representation of
+  position and direction, and a simple integer for speed. It also uses KeyListener
+  objects to make it responsive.
 
   GENERAL USE:
-  This is designed not as a general-purpose object, but it is a pattern that can be used for any number of moving objects. This is less a resuable object and more the sort of object pattern that will be very useful in future coding.
+  This is designed not as a general-purpose object,
+  but it is a pattern that can be used for any number of moving objects.
+  This is less a resuable object and more the sort of object pattern that will
+  be very useful in future coding.
 
   SPECIFIC USE:
   Like most shapes, there are only really four things the outside world needs to know about:
@@ -13,6 +20,8 @@
   * update(), which updates state in response to any user actions
   * detectCollision(), which you have to write. See line 103.
 */
+
+
 
 // constructor: takes a starting x and y position.
 var KeyedUpBall = function(x, y) {
@@ -31,6 +40,8 @@ KeyedUpBall.prototype = {
   keyLeft: 'A', // describes the key to move left
   keyDown: 'S', // decribes the key to move down
   keyRight: 'D', // describes the key to move right
+  //keyCode: 'String.fromCharCode(8)',
+  //keyCode: 'String.fromCharCode(13)',
 
   // initialize() sets up the KeyListeners on the movement keys
   initialize: function() {
@@ -38,6 +49,9 @@ KeyedUpBall.prototype = {
     this.listeners.push(new KeyListener(this.keyLeft, this.moveLeft, this));
     this.listeners.push(new KeyListener(this.keyDown, this.moveDown, this));
     this.listeners.push(new KeyListener(this.keyRight, this.moveRight, this));
+    //this.listeners.push(new KeyListener(this.keyCode, keyListenerMap.backspace, this));
+    //this.listeners.push(new KeyListener(this.keyCode, keyListenerMap.enter, this));
+
   },
 
   // display() draws the InteractiveBall
@@ -100,12 +114,16 @@ KeyedUpBall.prototype = {
     this.direction.y += 1;
   },
 
+  pause: function() {
+    timer.pause();
+  },
   // checkForIntersection() should returns true if this ball intersects with another ball
   // for this to work, the other ball must have its position represented by a position object that has an x and y, as well as a radius, as our BouncyBall does
-  detectCollision: function(otherBall) {
-
-    // your code goes here
-
-  }
+  detectCollision: function(checkForIntersection) {
+    var ballDistance = dist(this.position.x, this.position.y, otherBall.position.x, otherBall.position.y);
+    var radii = otherBall.radius + this.radius;
+    if (checkForIntersection < radii) return true;
+    else return false;
+  },
 
 };

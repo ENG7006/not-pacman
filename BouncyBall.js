@@ -1,11 +1,17 @@
 /*
   BOUNCY BALL
-  BouncyBall is similar to our other balls, but has two additional features: it uses p5.Vector objects to represent its position and speed, and it can tell when it's collided with another ball.
+  BouncyBall is similar to our other balls, but has two additional features:
+  it uses p5.Vector objects to represent its position and speed, and it can tell
+  when it's collided with another ball.
 
   GENERAL USE:
   Like InteractiveBall, this is less a reusable object and more an object-lesson. These bounce around a canvas.
 
-  Notable features: (1) it can initialize on a particular vector (which describes its direction, although not its speed), or it gives itself a random direction. (2) it can tell when it collides with another ball (read: an object that's a circle that has a position.x, a position.y, and a radius; this is nominally another BouncyBall, but it could be an InteractiveBall).
+  Notable features: (1) it can initialize on a particular vector
+  (which describes its direction, although not its speed),
+  or it gives itself a random direction. (2) it can tell when it collides with another ball
+  (read: an object that's a circle that has a position.x, a position.y, and a radius;
+  this is nominally another BouncyBall, but it could be an InteractiveBall).
 
   SPECIFIC USE:
   Create BouncyBalls with an x and y position, as well as a speed. The external-facing functions are:
