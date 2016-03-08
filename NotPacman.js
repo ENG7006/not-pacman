@@ -57,22 +57,18 @@ NotPacmanGame.prototype = {
     textSize(35);
     text(timer.getPrettyElapsedTime(), 20, 40); //once all of the balls are gone, this and counter changes to KeyedUpBall color
     counter.display();
-    //if (mouseClicked(mouseX > 0 && mouseX < width && mouseY > 0 && mouseY < height))
-      this.startGame();
-      //this.update();
-      //this.display();
+    mouseClicked() {
+      if (counter.display()) {
+      this.keyedUpBall = new KeyedUpBall(190, 300);
+      this.keyedUpBall.initialize();
+      while (otherBalls.length < ballIndex) otherBalls.push(new BouncyBall(width/2, height/2));
+      otherBalls.forEach(this.initializeOtherBall);
+    }};
 
-  },
-
-  startGame: function () {
-    this.keyedUpBall = new KeyedUpBall(190, 300);
-    this.keyedUpBall.initialize();
-    while (otherBalls.length < ballIndex) otherBalls.push(new BouncyBall(width/2, height/2));
-    otherBalls.forEach(this.initializeOtherBall);
   },
 
   update: function () {
-    this.keyedUpBall.update();
+    this.keyedUpBall.update(); //error here keyed up ball is undefined -- this line does not have access to keyedupball in startGame
     otherBalls.forEach(this.checkBallForDeletion, this);
     if (otherBalls.length === 0) timer.pause();
 
@@ -85,12 +81,6 @@ NotPacmanGame.prototype = {
     textSize(35);
     text(timer.getPrettyElapsedTime(), 20, 40); //once all of the balls are gone, this and counter changes to KeyedUpBall color
     counter.display();
-  },
-
-  mouseClicked: function (){
-    if(counter.display == true){
-      this.keyedUpBall = new KeyedUpBall(190, 300);
-    }
   },
 
   initializeOtherBall: function (otherBall, index, array) {
