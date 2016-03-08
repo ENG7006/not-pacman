@@ -40,6 +40,9 @@ KeyedUpBall.prototype = {
   keyLeft: 'A', // describes the key to move left
   keyDown: 'S', // decribes the key to move down
   keyRight: 'D', // describes the key to move right
+
+// ??-- Seems like I need to get the key assignment here using the code below, though it's possibel that
+// ??-- these two don't need to be in keyedUpBall at all. Maybe I should put them in NotPacman directly and call the KeyListener there.
   //keyCode: 'String.fromCharCode(8)',
   //keyCode: 'String.fromCharCode(13)',
 
@@ -49,8 +52,8 @@ KeyedUpBall.prototype = {
     this.listeners.push(new KeyListener(this.keyLeft, this.moveLeft, this));
     this.listeners.push(new KeyListener(this.keyDown, this.moveDown, this));
     this.listeners.push(new KeyListener(this.keyRight, this.moveRight, this));
-    //this.listeners.push(new KeyListener(this.keyCode, keyListenerMap.backspace, this));
-    //this.listeners.push(new KeyListener(this.keyCode, keyListenerMap.enter, this));
+    //this.listeners.push(new KeyListener(keyListenerMap.backspace, function_to_call, this));
+    //this.listeners.push(new KeyListener(keyListenerMap.enter, function_to_call, this));
 
   },
 
@@ -119,10 +122,13 @@ KeyedUpBall.prototype = {
   },
   // checkForIntersection() should returns true if this ball intersects with another ball
   // for this to work, the other ball must have its position represented by a position object that has an x and y, as well as a radius, as our BouncyBall does
-  detectCollision: function(checkForIntersection) {
+
+// ??-- what is the parameter doing here? Should it be deleteBallAt? This is weird.
+// ??-- this function is repeated in NotPacman
+  detectCollision: function(otherBall) {
     var ballDistance = dist(this.position.x, this.position.y, otherBall.position.x, otherBall.position.y);
     var radii = otherBall.radius + this.radius;
-    if (checkForIntersection < radii) return true;
+    if (ballDistance < radii) return true;
     else return false;
   },
 
