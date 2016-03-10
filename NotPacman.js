@@ -11,16 +11,9 @@ deleteBallAt code -- think it's fine, want to double check --
 
 */
 
-// -- The timer needs to be linked to the operation of the balls -- pause/unpause
-// -- How can this freeze the balls in play? It needs to pause the draw/display function.
-// -- This needs to be reset at 0 whne the enter key is hit
 var timer = new Timer();
+timer.pause();
 
-var mousePressed = function() {};
-
-
-
-// -- This needs to be reset at 0 when the enter key is hit
 var counter = {
   number: 0,
 
@@ -34,53 +27,46 @@ var counter = {
   }
 };
 
-// -- This needs to be reset at initial value when enter key is hit
 var otherBalls = [];
 
-var ballIndex = 1;
+var ballIndex = 3;
 
-/* -- KeyedUpBall needs to be reset at initial value when enter key is hit
-   -- This needs to stop when delete is pressed once, start again when delete is pressed again ...
-   -- ... Use an if statement: if enter is pressed when not-paused, pause, ...
-   -- ... followed by another if statement ...
-   -- ... if enter is pressed when paused, resume.
-*/
 
 var NotPacmanGame = function () {
 };
 
 NotPacmanGame.prototype = {
 
-
   initialize: function () {
     createCanvas(600, 600);
-    textSize(35);
-    text(timer.getPrettyElapsedTime(), 20, 40); //once all of the balls are gone, this and counter changes to KeyedUpBall color
-    counter.display();
-    mouseClicked() {
-      if (counter.display()) {
-      this.keyedUpBall = new KeyedUpBall(190, 300);
-      this.keyedUpBall.initialize();
-      while (otherBalls.length < ballIndex) otherBalls.push(new BouncyBall(width/2, height/2));
-      otherBalls.forEach(this.initializeOtherBall);
-    }};
-
+    this.keyedUpBall = new KeyedUpBall(190, 300);
+    this.keyedUpBall.initialize();
+    while (otherBalls.length < ballIndex) otherBalls.push(new BouncyBall(width/2, height/2));
+    otherBalls.forEach(this.initializeOtherBall);
+    this.gameInPlay = 0;
   },
 
   update: function () {
-    this.keyedUpBall.update(); //error here keyed up ball is undefined -- this line does not have access to keyedupball in startGame
+    this.keyedUpBall.update();
     otherBalls.forEach(this.checkBallForDeletion, this);
-    if (otherBalls.length === 0) timer.pause();
-
-  },
+    if (otherBalls.length === 0) timer.pause();  },
 
   display: function () {
+    this.preGame();
+    if (this.gameInPlay) this.playGame();
+  },
+
+  preGame: function() {
     background(0);
+    fill(255)
+    textSize(35);
+    text(timer.getPrettyElapsedTime(), 20, 40);
+    counter.display();
+  },
+
+  playGame: function() {
     if (otherBalls.length > 0) this.keyedUpBall.display();
     otherBalls.forEach(this.updateAndDisplayOtherBall);
-    textSize(35);
-    text(timer.getPrettyElapsedTime(), 20, 40); //once all of the balls are gone, this and counter changes to KeyedUpBall color
-    counter.display();
   },
 
   initializeOtherBall: function (otherBall, index, array) {
@@ -103,40 +89,8 @@ NotPacmanGame.prototype = {
 
   },
 
-
-//things I need to do:
-//--start with blank screen and HUD at 0:00 and 0
-//--mouse click begins game using mouseClicked()
-
-
+  startGame: function() {
+    this.gameInPlay = 1;
+    timer.unpause();
+  }
 };
-
-
-
-
-  //to stop the timer, will I need a for loop?
-
-/* ??-- Alternte deleteBallAt code?
-// ??-- this should be in object literal, right?
-
-
-    }
-*/
-
-
-
-
-
-
-/* ??-- Are these necessary to kickstart the process of deletion?
-   ????????-- Not sure when initialize/update/display are required, conceptual roadblock here.
-
-  initializeDeleteBall: function (ball) {
-	  ball.initialize();
-  },
-
-  updateAndDisplayDeleteBall: function (ball) {
-	  ball.update();
-  	ball.display();
-  },
-*/
