@@ -29,7 +29,7 @@ var counter = {
 
 var otherBalls = [];
 
-var ballIndex = 3;
+var ballIndex = 20;
 
 
 var NotPacmanGame = function () {
