@@ -27,12 +27,19 @@ Timer.prototype = {
   initialize: function() {
     this.init = Date.now();
     this.now = Date.now();
+  },
+
+  // I removed the code to start the timer from the initialize function and created
+  // a start fnction that must be invoked by the calling applicaiton.  I did this
+  // so that the timer can be instantiated without starting the timer itself.
+  start: function() {
     this.running = true;
   },
 
   // restart() restarts the counter from zero
   restart: function() {
     this.initialize();
+    this.running = true;
   },
 
   // pause() stops the timer at the current value
@@ -44,6 +51,7 @@ Timer.prototype = {
   unpause: function() {
     var elapsedSoFar = this.millisecondsElapsed();
     this.initialize();
+    this.running = true;
     var newInit = new Date(this.now - elapsedSoFar);
     this.init = newInit.getTime();
   },
