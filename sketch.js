@@ -3,16 +3,12 @@
 var myGame = new NotPacmanGame();
 
 setup = function () {
-
   myGame.initialize();
-
 };
 
 draw = function() {
-
   myGame.update();
   myGame.display();
-
 };
 
 /* ... AND HERE
@@ -22,5 +18,5 @@ draw = function() {
 mouseClicked = function () {
 
   // optional code goes here
-
+  myGame.startGame();
 };

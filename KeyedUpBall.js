@@ -109,6 +109,6 @@ KeyedUpBall.prototype = {
 
     // your code goes here
 
-  }
+  },
 
 };

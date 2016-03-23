@@ -68,6 +68,5 @@ BouncyBall.prototype = {
   // checkBounce() is a generalized version of the logic used for horizontal and vertical bounces
   checkBounce: function(position, limit, size) {
     return (position < size || position > limit - size);
-  }
-
+  },
 };
