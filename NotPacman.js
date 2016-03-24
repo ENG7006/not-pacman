@@ -15,6 +15,7 @@ var balls = [];
 
 var startingBalls = 20;
 
+
 var initializeBall = function (ball, oneBall, array) {
   ball.initialize();
 };
@@ -41,20 +42,12 @@ NotPacmanGame.prototype = {
 
   initialize: function () {
     createCanvas(400, 400);
-    while (balls.length < startingBalls) balls.push(new BouncyBall(width/2, height/2));
-    balls.forEach(initializeBall);
-    this.keyedUpBall = new KeyedUpBall(25, 25);
-    this.keyedUpBall.initialize();
-
-
+    timer.pause();
+    this.gameInPlay = false;
 
 },
 
   update: function () {
-    this.keyedUpBall.update();
-
-    balls.forEach(this.checkBallToDelete, this);
-
 
 
   },
@@ -66,16 +59,7 @@ NotPacmanGame.prototype = {
     textSize(40);
     fill(255);
 
-      balls.forEach(updateAndDisplay);
-      this.keyedUpBall.update();
-this.keyedUpBall.display();
-
-//if (balls.length > 0) this.this.keyedUpBall.display();
-balls.forEach(this.updateAndDisplayBalls);
-
-
-
-
+    if (this.gameInPlay) this.keepPlaying();
 
   },
 
@@ -86,7 +70,7 @@ checkBallToDelete: function(otherBall, oneBall, array) {
 
 deleteBallHere: function(oneBall) {
   balls.splice(oneBall, 1);
-
+  counter.number ++;
 },
 
 updateAndDisplayBalls: function(ball, index, array) {
@@ -94,6 +78,26 @@ updateAndDisplayBalls: function(ball, index, array) {
   ball.display();
 },
 
+startGame: function () {
+  while (balls.length < startingBalls) balls.push(new BouncyBall(width/2, height/2));
+  balls.forEach(initializeBall);
+  this.keyedUpBall = new KeyedUpBall(25, 25);
+  this.keyedUpBall.initialize();
+  timer.unpause();
+  this.gameInPlay = true;
+},
 
+keepPlaying: function () {
+  this.keyedUpBall.update();
+  //this.keyedUpBall.display();
+  balls.forEach(this.checkBallToDelete, this);
+  if (balls.length === 0) timer.pause();
+  //balls.forEach(updateAndDisplay);
+//this.keyedUpBall.update();
+  if (balls.length > 0) this.keyedUpBall.display();//keyed up ball on screen as long as there are other balls around
+//if (balls.length > 0) timer.pause();//
+//if (balls.length > 0 && mouseIsPressed) timer.unpause();
+  balls.forEach(this.updateAndDisplayBalls);
 
+}
 };
