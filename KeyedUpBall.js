@@ -43,7 +43,7 @@ KeyedUpBall.prototype = {
   // display() draws the InteractiveBall
   display: function() {
     noStroke();
-    fill(52, 43, 231, 181);
+    fill(255, 0, 222, 181);
     ellipse(this.position.x, this.position.y, this.radius * 2, this.radius * 2);
   },
 
@@ -103,9 +103,11 @@ KeyedUpBall.prototype = {
   // detectCollision() should returns true if this ball intersects with another ball
   // for this to work, the other ball must have its position represented by a position object that has an x and y, as well as a radius, as our BouncyBall does
   detectCollision: function(otherBall) {
-
+    var collisionDistance = this.radius + otherBall.radius;
+    var otherwiseDistance = dist(this.position.x, this.position.y, otherBall.position.x, otherBall.position.y);
+    return (otherwiseDistance < collisionDistance) ? true : false;
     // your code goes here
 
-  }
+  },
 
 };

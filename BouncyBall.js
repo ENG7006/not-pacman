@@ -40,7 +40,7 @@ BouncyBall.prototype = {
   // display() draws a circle
   display: function() {
     noStroke();
-    fill(255, 255, 255, 128);
+    fill(255, 247, 0, 128);
     ellipse(this.position.x, this.position.y, this.radius * 2, this.radius * 2);
   },
 
