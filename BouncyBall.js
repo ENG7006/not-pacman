@@ -41,6 +41,7 @@ BouncyBall.prototype = {
   display: function() {
     noStroke();
     fill(255, 255, 255, 128);
+    console.log("Displaying BouncyBall at " + this.position.x + ", " + this.position.y + ", with radius " + this.radius);
     ellipse(this.position.x, this.position.y, this.radius * 2, this.radius * 2);
   },
 
