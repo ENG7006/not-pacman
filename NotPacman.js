@@ -7,7 +7,7 @@ var counter = {
   display: function () {
     textSize(40);
     fill(255);
-    text(this.number, 350, 350);
+    text(this.number, 350, 375);
 },
 };
 
@@ -54,7 +54,7 @@ NotPacmanGame.prototype = {
   display: function () {
     background(0);
     counter.display();
-    text(timer.getPrettyElapsedTime(), 50, 350);
+    text(timer.getPrettyElapsedTime(), 25, 375);
     textSize(40);
     fill(255);
 
